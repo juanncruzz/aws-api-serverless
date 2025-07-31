@@ -1,0 +1,58 @@
+
+
+service: RDSconnection
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  
+  vpc: 
+    securityGroupIds:
+      - sg-067a663c530df8d43
+
+    subnetIds:
+      - subnet-0e5f33e5c2a82a8d2
+      - subnet-0f323c54926b7866c
+      - subnet-0ccc2576786ff862d
+      - subnet-0b5eed2baa691fbb5
+      - subnet-055af1dc272b6eff7
+      - subnet-0d248199af3631528
+
+functions:
+  RDSTestconnection:
+    handler: handlers/handlerRDSTestconnection.RDSTestconnection
+    events:
+      - httpApi:
+          path: /RDSconnection/RDSTestconnection
+          method: get
+
+  RDScreate:
+    handler: handlers/handlerRDScreate.RDScreate
+    events:
+      - httpApi:
+          path: /RDSconnection/RDScreate
+          method: post
+
+  RDSupdate:
+    handler: handlers/handlerRDSupdate.RDSupdate
+    events:
+      - httpApi:
+          path: /RDSconnection/RDSupdate/{id}
+          method: put
+
+  RDSdelete:
+    handler: handlers/handlerRDSdelete.RDSdelete
+    events:
+      - httpApi:
+          path: /RDSconnection/RDSdelete/{id}
+          method: delete
+
+  RDSselect:
+    handler: handlers/handlerRDSselect.RDSselect
+    events:
+      - httpApi:
+          path: /RDSconnection/RDSselect/{id}
+          method: get
